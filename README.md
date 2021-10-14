@@ -21,5 +21,6 @@ cd attack && docker stack deploy -c attack-compose.yml attack && cd ..
 cd demo && docker stack deploy -c demo-compose.yml demo && cd ..
 cd orca && docker stack deploy -c orca-compose.yml orca && cd ..
 cd ros && docker stack deploy -c ros-compose.yml ros && cd ..
+mkdir -p ~/linx-data && chmod -R 777 ~/linx-data && docker stack deploy -c linx-compose.yml linx
 ```
 

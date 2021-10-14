@@ -1,0 +1,27 @@
+version: '3'
+services:
+  linx:
+    image: andreimarcu/linx-server:version-2.2
+    networks:
+      - traefik-public
+    volumes:
+      - ~/linx-data:/data/files
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.linx.rule=Host(`linx.wuhanstudio.uk`)"
+        - "traefik.http.routers.linx.entrypoints=web"
+        - "traefik.http.services.linx.loadbalancer.server.port=8080"
+        # TLS
+        - "traefik.http.routers.linxs.rule=Host(`linx.wuhanstudio.uk`)"
+        - "traefik.http.routers.linxs.entrypoints=websecure"
+        - "traefik.http.routers.linxs.tls.certresolver=myhttpchallenge"
+        # Redirect
+        - "traefik.http.routers.linx.middlewares=https_redirect"
+        - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  traefik-public:
+    external: true

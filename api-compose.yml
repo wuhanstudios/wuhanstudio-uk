@@ -1,0 +1,22 @@
+version: '3'
+services:
+  class:
+    image: wuhanstudio/adversarial-classification:v0.1.0
+    networks:
+     - traefik-public
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.classification.rule=Host(`api.wuhanstudio.uk`)"
+        - "traefik.http.routers.classification.entrypoints=web"
+        - "traefik.http.services.classification.loadbalancer.server.port=8080"
+        # TLS
+        - "traefik.http.routers.classifications.rule=Host(`api.wuhanstudio.uk`)"
+        - "traefik.http.routers.classifications.entrypoints=websecure"
+        - "traefik.http.routers.classifications.tls.certresolver=myhttpchallenge"
+        # Redirect
+        - "traefik.http.routers.classification.middlewares=https_redirect"
+        - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+networks:
+  traefik-public:
+    external: true

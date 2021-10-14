@@ -1,0 +1,12 @@
+[submodule "ros"]
+	path = ros
+	url = https://github.com/wuhanstudio/rtt-gdc-talk-2021
+[submodule "demo"]
+	path = demo
+	url = https://github.com/wuhanstudio/demo-talk
+[submodule "attack"]
+	path = attack
+	url = https://github.com/wuhanstudio/attack-talk
+[submodule "orca"]
+	path = orca
+	url = https://github.com/wuhanstudio/orca-talk
